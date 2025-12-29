@@ -17,7 +17,9 @@ struct WeatherView: View {
                     .padding(.horizontal)
                 
                 Button {
-                    // TODO: Fetch Weather from View Model
+                    Task {
+                        await vm.fetch()
+                    }
                 } label: {
                     Label(
                         "Get Weather",
