@@ -16,7 +16,7 @@ class WeatherViewModel {
     
     private let apiKey = "APIKEY"
     
-    private func fetchWeather(for city: String) async throws -> WeatherResponse {
+    private func fetchWeatherData(for city: String) async throws -> WeatherResponse {
         // Build URL
         let urlString = "http://api.weatherapi.com/v1/current.json?key=\(apiKey)&q=\(city)&aqi=no"
         guard let url = URL(string: urlString) else {
@@ -40,6 +40,20 @@ class WeatherViewModel {
             return try JSONDecoder().decode(WeatherResponse.self, from: data)
         } catch {
             throw WeatherError.decodingFailed
+        }
+    }
+    
+    @MainActor
+    func fetch(city: String) async {
+        do {
+            weather = try await fetchWeatherData(for: city)
+            errorMessage = "Successfully fetched weather for \(city.capitalized)"
+        } catch {
+            if let weatherError = error as? WeatherError {
+                errorMessage = weatherError.localizedDescription
+            } else {
+                errorMessage = "Unexpected error: \(error.localizedDescription)"
+            }
         }
     }
 }
