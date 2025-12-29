@@ -14,11 +14,20 @@ class WeatherViewModel {
     var isLoading: Bool = false
     var errorMessage: String?
     
-    private let apiKey = "APIKEY"
+    private var apiKey: String {
+        guard
+            let url = Bundle.main.url(forResource: "Secrets", withExtension: "plist"),
+            let data = try? Data(contentsOf: url),
+            let dict = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
+            let key = dict["API_KEY"] as? String
+        else { return "" }
+        
+        return key
+    }
     
     private func fetchWeatherData(for city: String) async throws -> WeatherResponse {
         // Build URL
-        let urlString = "http://api.weatherapi.com/v1/current.json?key=\(apiKey)&q=\(city)&aqi=no"
+        let urlString = "https://api.weatherapi.com/v1/current.json?key=\(apiKey)&q=\(city)&aqi=no"
         guard let url = URL(string: urlString) else {
             throw WeatherError.invalidURL
         }

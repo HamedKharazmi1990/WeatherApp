@@ -32,8 +32,7 @@ struct WeatherView: View {
                     ProgressView("Fetching weather...")
                         .padding()
                 } else if let weather = vm.weather {
-                    // TODO: Implement Weather Card
-                    Text("display weather card")
+                    WeatherCard(weather: weather)
                 } else if let error = vm.errorMessage {
                     Text(error)
                         .foregroundStyle(.red)
