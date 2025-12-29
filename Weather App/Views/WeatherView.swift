@@ -9,6 +9,9 @@ import SwiftUI
 
 struct WeatherView: View {
     @State private var vm = WeatherViewModel()
+    
+    @AppStorage("useFahrenheit") private var useFahrenheit = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -33,14 +36,33 @@ struct WeatherView: View {
                     ProgressView("Fetching weather...")
                         .padding()
                 } else if let weather = vm.weather {
-                    WeatherCard(weather: weather)
+                    WeatherCard(
+                        weather: weather,
+                        useFahrenheit: useFahrenheit
+                    )
                 } else if let error = vm.errorMessage {
                     Text(error)
                         .foregroundStyle(.red)
                 }
                 
                 Spacer()
-            }.navigationTitle("Weather App")
+            }
+            .navigationTitle("Weather App")
+            .toolbar {
+                ToolbarItem {
+                    Menu {
+                        Toggle(isOn: $useFahrenheit) {
+                            Label(
+                                useFahrenheit ? "Use Celsius" : "Use Fahrenheit",
+                                systemImage: "thermometer.sun"
+                            )
+                        }
+                    } label: {
+                        Image(systemName: "gear")
+                            .foregroundStyle(.black)
+                    }
+                }
+            }
         }
     }
 }
