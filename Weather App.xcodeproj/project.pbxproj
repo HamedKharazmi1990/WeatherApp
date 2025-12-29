@@ -16,6 +16,11 @@
 			path = "Weather App";
 			sourceTree = "<group>";
 		};
+		23A54CDA2F0313F10017D9E1 /* assets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = assets;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +37,7 @@
 		23A54C882F02D5720017D9E1 = {
 			isa = PBXGroup;
 			children = (
+				23A54CDA2F0313F10017D9E1 /* assets */,
 				23A54C932F02D5720017D9E1 /* Weather App */,
 				23A54C922F02D5720017D9E1 /* Products */,
 			);
@@ -62,6 +68,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				23A54C932F02D5720017D9E1 /* Weather App */,
+				23A54CDA2F0313F10017D9E1 /* assets */,
 			);
 			name = "Weather App";
 			packageProductDependencies = (
