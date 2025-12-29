@@ -5,6 +5,10 @@ Built with **SwiftUI**, **async/await**, and a clean **MVVM** architecture.
 
  
 ![Demo](assets/demo_weatherApp.gif)
+## Demo
+<a href="./assets/demo.gif">
+  <img src="./assets/demo_weatherApp.gif" height="420" alt="HotKeys Demo" />
+</a>
 
 ---
 
@@ -43,7 +47,6 @@ Built with **SwiftUI**, **async/await**, and a clean **MVVM** architecture.
 - [Troubleshooting](#troubleshooting)
 - [Roadmap](#roadmap)
 - [Acknowledgments](#acknowledgments)
-- [License](#license)
 - [Maintainer](#maintainer)
 
 ---
@@ -55,7 +58,8 @@ Built with **SwiftUI**, **async/await**, and a clean **MVVM** architecture.
 ```bash
 git clone "https://github.com/HamedKharazmi1990/WeatherApp"
 cd "Weather App"
-2️⃣ Create Your Weather API Key
+
+### 2️⃣ Create Your Weather API Key
 Get a free API key from WeatherAPI.
 
 Create a file called Secrets.plist in:
@@ -77,21 +81,21 @@ Copy code
 </plist>
 ⚠️ Do not commit your real API key. See .gitignore for Secrets.
 
-3️⃣ Open & Run
+### 3️⃣ Open & Run
 Open Weather App/Weather App.xcodeproj in Xcode 16+
 
 Choose an iOS 18.5+ simulator
 
 Press Run (⌘R)
 
-💡 Usage
+### 💡 Usage
 Enter a city name (e.g., Berlin, New York, Tehran).
 
 Tap Search to view live weather.
 
 Use the gear icon to switch between Celsius and Fahrenheit.
 
-🧩 Project Structure
+### 🧩 Project Structure
 graphql
 Copy code
 Weather App
@@ -109,7 +113,7 @@ Weather App
 │   └── WeatherView.swift     # Main search and display UI
 ├── Weather_App.entitlements
 └── Weather_AppApp.swift      # App entry point
-🔄 Data Flow
+### 🔄 Data Flow
 scss
 Copy code
 WeatherView
@@ -124,7 +128,7 @@ API Request Example:
 pgsql
 Copy code
 https://api.weatherapi.com/v1/current.json?key=<API_KEY>&q=<CITY>&aqi=no
-⚙️ Configuration & Secrets
+### ⚙️ Configuration & Secrets
 The app securely reads the API key from Config/Secrets.plist using:
 
 swift
@@ -152,7 +156,7 @@ Problem    Possible Fix
 Decoding Error    Verify your API response or key
 No Results Found    Try a more common city name
 
-🗺️ Roadmap
+### 🗺️ Roadmap
 🌍 Auto-detect location using CoreLocation
 
 🕒 Add hourly and daily forecast
@@ -167,7 +171,7 @@ No Results Found    Try a more common city name
 WeatherAPI — for providing free weather data and icons.
 
 
-👨‍💻 Maintainer
+### 👨‍💻 Maintainer
 Hamed Kharazmi
 📧 hamed.kharazmi@gmail.com
 
