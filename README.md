@@ -1,9 +1,9 @@
 # 🌦️ Weather App (SwiftUI)
 
-A modern and lightweight iOS app that fetches and displays real-time weather for any city using the [WeatherAPI](https://www.weatherapi.com/) service.  
+A modern and lightweight iOS app that fetches and displays real-time weather data for any city using the [WeatherAPI](https://www.weatherapi.com/) service.  
 Built with **SwiftUI**, **async/await**, and a clean **MVVM** architecture.
 
- 
+
 ## Demo
 <p align="center">
   <img src="./assets/demo_weatherApp.gif" width="420" alt="WeatherApp Demo" />
@@ -14,18 +14,18 @@ Built with **SwiftUI**, **async/await**, and a clean **MVVM** architecture.
 ## ✨ Features
 
 - 🔎 Search weather by **city name**
-- 🌡️ Toggle between **Celsius** and **Fahrenheit** (saved via `@AppStorage`)
-- 🖼️ Dynamic weather icons using `AsyncImage`
-- ⚡ Fast, responsive UI built with **SwiftUI**
-- ❗ Friendly error handling
-- 🧱 Well-structured **MVVM** design
+- 🌡️ Toggle between **Celsius** and **Fahrenheit** (persisted using `@AppStorage`)
+- 🖼️ Dynamic weather icons via `AsyncImage`
+- ⚡ Fast and responsive UI built with **SwiftUI**
+- ❗ User-friendly error handling
+- 🧱 Clean and scalable **MVVM** architecture
 
 ---
 
 ## 🧰 Tech Stack
 
 | Category | Technology |
-|-----------|-------------|
+|--------|------------|
 | **Language** | Swift |
 | **Framework** | SwiftUI |
 | **Architecture** | MVVM |
@@ -36,20 +36,6 @@ Built with **SwiftUI**, **async/await**, and a clean **MVVM** architecture.
 
 ---
 
-## 📖 Table of Contents
-
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Configuration & Secrets](#configuration--secrets)
-- [.gitignore for Secrets](#gitignore-for-secrets)
-- [Troubleshooting](#troubleshooting)
-- [Roadmap](#roadmap)
-- [Acknowledgments](#acknowledgments)
-- [Maintainer](#maintainer)
-
----
-
 ## 🚀 Getting Started
 
 ### 1️⃣ Clone the Repository
@@ -57,121 +43,100 @@ Built with **SwiftUI**, **async/await**, and a clean **MVVM** architecture.
 ```bash
 git clone "https://github.com/HamedKharazmi1990/WeatherApp"
 cd "Weather App"
+```
 
 ### 2️⃣ Create Your Weather API Key
-Get a free API key from WeatherAPI.
 
-Create a file called Secrets.plist in:
+    1. Get a free API key from WeatherAPI.
+    2. Create a file named `Secrets.plist` at the following path:
+        Weather App/Weather App/Config/Secrets.plist
+    3. Paste the following content and replace `YOUR_WEATHERAPI_KEY`:
 
-swift
-Copy code
-Weather App/Weather App/Config/Secrets.plist
-Paste the following content (replace YOUR_WEATHERAPI_KEY):
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+        <key>API_KEY</key>
+        <string>YOUR_WEATHERAPI_KEY</string>
+        </dict>
+    </plist>
 
-xml
-Copy code
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>API_KEY</key>
-    <string>YOUR_WEATHERAPI_KEY</string>
-</dict>
-</plist>
-⚠️ Do not commit your real API key. See .gitignore for Secrets.
+⚠️ Do not commit your real API key.
 
 ### 3️⃣ Open & Run
-Open Weather App/Weather App.xcodeproj in Xcode 16+
-
-Choose an iOS 18.5+ simulator
-
-Press Run (⌘R)
+    1.    Open Weather App/Weather App.xcodeproj in Xcode 16+
+    2.    Choose an iOS 18.5+ simulator
+    3.    Press Run (⌘R)
 
 ### 💡 Usage
-Enter a city name (e.g., Berlin, New York, Tehran).
+    1.    Enter a city name (e.g. Berlin, New York, Tehran)
+    2.    Tap Search to fetch live weather data
+    3.    Use the gear icon to switch between Celsius and Fahrenheit
 
-Tap Search to view live weather.
+ ###   🧩 Project Structure
+     Weather App
+    ├── Assets.xcassets
+    ├── Config
+    │   └── Secrets.plist          # API key (ignored by git)
+    ├── Models
+    │   └── WeatherResponse.swift  # Codable API models
+    ├── ViewModels
+    │   ├── WeatherError.swift     # User-friendly error handling
+    │   └── WeatherViewModel.swift # Async fetch & state management
+    ├── Views
+    │   ├── ErrorMessageView.swift
+    │   ├── WeatherCard.swift      # Weather snapshot UI
+    │   └── WeatherView.swift      # Main search & display view
+    ├── Weather_App.entitlements
+    └── Weather_AppApp.swift       # App entry point
 
-Use the gear icon to switch between Celsius and Fahrenheit.
+ ###   🔄 Data Flow
+    WeatherView
+     ↓ triggers
+    WeatherViewModel.search()
+     ↓ fetches
+    WeatherAPI → Decode → WeatherResponse
+     ↓ updates
+    WeatherCard + ErrorMessageView
 
-### 🧩 Project Structure
-graphql
-Copy code
-Weather App
-├── Assets.xcassets
-├── Config
-│   └── Secrets.plist         # Your API key (ignored in git)
-├── Models
-│   └── WeatherResponse.swift # Codable models for API response
-├── ViewModels
-│   ├── WeatherError.swift    # User-friendly error messages
-│   └── WeatherViewModel.swift# Async fetch + state handling
-├── Views
-│   ├── ErrorMessageView.swift
-│   ├── WeatherCard.swift     # Weather snapshot component
-│   └── WeatherView.swift     # Main search and display UI
-├── Weather_App.entitlements
-└── Weather_AppApp.swift      # App entry point
-### 🔄 Data Flow
-scss
-Copy code
-WeatherView
-   ↓ triggers
-WeatherViewModel.search()
-   ↓ fetches
-WeatherAPI → Decodes → WeatherResponse
-   ↓ updates
-WeatherCard + ErrorMessageView
-API Request Example:
+### API Request Example
+    https://api.weatherapi.com/v1/current.json?key=<API_KEY>&q=<CITY>&aqi=no
 
-pgsql
-Copy code
-https://api.weatherapi.com/v1/current.json?key=<API_KEY>&q=<CITY>&aqi=no
 ### ⚙️ Configuration & Secrets
-The app securely reads the API key from Config/Secrets.plist using:
+The app reads the API key securely from Secrets.plist using:
 
-swift
-Copy code
-Bundle.main.url(forResource: "Secrets", withExtension: "plist")
-Do not hardcode keys directly in your source files.
+    Bundle.main.url(forResource: "Secrets", withExtension: "plist")
 
-🧾 .gitignore for Secrets
-Add the following rules to your .gitignore:
+❌ Never hardcode API keys directly in source files.
 
-perl
-Copy code
-# macOS
-.DS_Store
+### 🧾 .gitignore for Secrets
+Add the following rules to your .gitignore file:
 
-# Xcode user data
-*.xcuserstate
-*.xcuserdatad
+    # macOS
+    .DS_Store
 
-# Secrets
-**/Config/Secrets.plist
-🧰 Troubleshooting
-Problem    Possible Fix
-401/403 Unauthorized    Check your WeatherAPI key and free plan limits
-Decoding Error    Verify your API response or key
-No Results Found    Try a more common city name
+    # Xcode user data
+    *.xcuserstate
+    *.xcuserdatad
 
-### 🗺️ Roadmap
-🌍 Auto-detect location using CoreLocation
+    # Secrets
+    **/Config/Secrets.plist
 
-🕒 Add hourly and daily forecast
+###   🧰 Troubleshooting
+| Problem | Possible Fix |
+|--------|------------|
+| **401 / 403 Unauthorized** | Check your WeatherAPI key and free plan limits |
+| **Decoding Error** | Verify API response structure and key validity |
+| **No Results Found** | Try a more common city name |
 
-🌓 Improve dark mode UI
-
-🗂️ Save favorite cities
-
-🧪 Add unit & snapshot tests
-
-🙏 Acknowledgments
-WeatherAPI — for providing free weather data and icons.
-
+### 🙏 Acknowledgments
+[WeatherAPI](https://www.weatherapi.com/) — for providing free weather data and icons
 
 ### 👨‍💻 Maintainer
-Hamed Kharazmi
-📧 hamed.kharazmi@gmail.com
 
-PRs and suggestions are always welcome!
+    Hamed Kharazmi
+    📧 hamed.kharazmi@gmail.com
+
+
+    
