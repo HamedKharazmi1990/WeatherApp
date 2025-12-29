@@ -40,9 +40,8 @@ struct WeatherView: View {
                         weather: weather,
                         useFahrenheit: useFahrenheit
                     )
-                } else if let error = vm.errorMessage {
-                    Text(error)
-                        .foregroundStyle(.red)
+                } else if vm.errorMessage != nil {
+                    ErrorMessageView()
                 }
                 
                 Spacer()
