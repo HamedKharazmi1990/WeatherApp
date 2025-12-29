@@ -27,6 +27,7 @@ struct WeatherView: View {
                     )
                 }.buttonStyle(.borderedProminent)
                     .padding()
+                    .disabled(vm.city.count < 3)
                 
                 if vm.isLoading {
                     ProgressView("Fetching weather...")
