@@ -4,11 +4,10 @@ A modern and lightweight iOS app that fetches and displays real-time weather for
 Built with **SwiftUI**, **async/await**, and a clean **MVVM** architecture.
 
  
-![Demo](assets/demo_weatherApp.gif)
 ## Demo
-<a href="./assets/demo.gif">
-  <img src="./assets/demo_weatherApp.gif" height="420" alt="HotKeys Demo" />
-</a>
+<p align="center">
+  <img src="./assets/demo_weatherApp.gif" width="420" alt="WeatherApp Demo" />
+</p>
 
 ---
 
